@@ -15,17 +15,10 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
 Route::get('/', [LoginController::class, 'showLoginForm']);
 Route::post('/admin/store', [UserController::class, 'store'])->name('admin.store');
 Route::post('/admin/login', [LoginController::class, 'login'])->name('admin.login');
 Route::get('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
-
 
 Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/admin/showloginform', [LoginController::class, 'showLoginForm'])->name('admin.showloginform');
