@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -14,14 +15,10 @@ class UserController extends Controller
         return view('auth.register');
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate([
-            'name'=> 'required',
-            'email'=> 'required|email|unique:users',
-            'password'=> 'required|min:8|max:12',
-        ]);
-
+        $validated = $request->validated();
+        
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
